@@ -81,6 +81,23 @@ async function run() {
 
 
 
+    app.patch('/bookings/:id', async(req,res)=>{
+      const id = req.params.id
+      const filter= {_id : new ObjectId(id)};
+      const quary = req.body;
+       console.log(quary);
+       const updateDoc = {
+         $set: {
+           stutas: quary.stutas,
+         },
+       };
+      
+      const result = await bookingCollection.updateOne(filter,updateDoc)
+      res.send(result)
+    })
+
+
+
 
     await client.db("admin").command({ping: 1});
     console.log(
